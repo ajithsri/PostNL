@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://postnl.nl/cif/services/LocationWebService/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="LocationWebService" targetNamespace="http://postnl.nl/cif/services/LocationWebService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://postnl.nl/cif/domain/LocationWebService/" elementFormDefault="qualified" targetNamespace="http://postnl.nl/cif/domain/LocationWebService/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xs:complexType name="GetNearestLocationsRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Countrycode" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Location" nillable="true" type="tns:Location">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Message" nillable="true" type="tns:Message">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GetNearestLocationsRequest" nillable="true" type="tns:GetNearestLocationsRequest" />
+      <xs:complexType name="Location">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:BaseLocation">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="City" nillable="true" type="xs:string">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element minOccurs="0" name="Coordinates" nillable="true" type="tns:Coordinate">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element minOccurs="0" name="HouseNr" nillable="true" type="xs:string">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element minOccurs="0" name="HouseNrExt" nillable="true" type="xs:string">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element minOccurs="0" name="Postalcode" nillable="true" type="xs:string">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element minOccurs="0" name="Street" nillable="true" type="xs:string">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="Location" nillable="true" type="tns:Location" />
+      <xs:complexType name="BaseLocation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AllowSundaySorting" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="DeliveryDate" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DeliveryOptions" nillable="true" type="q1:ArrayOfstring">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="OpeningTime" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Options" nillable="true" type="q2:ArrayOfstring">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="BaseLocation" nillable="true" type="tns:BaseLocation" />
+      <xs:complexType name="Coordinate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Latitude" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Longitude" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Coordinate" nillable="true" type="tns:Coordinate" />
+      <xs:complexType name="Message">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="MessageID" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="MessageTimeStamp" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Message" nillable="true" type="tns:Message" />
+      <xs:complexType name="GetLocationsResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="GetLocationsResult" nillable="true" type="tns:ArrayOfResponseLocation">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Warnings" nillable="true" type="tns:ArrayOfWarning">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GetLocationsResponse" nillable="true" type="tns:GetLocationsResponse" />
+      <xs:complexType name="ArrayOfResponseLocation">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ResponseLocation" nillable="true" type="tns:ResponseLocation" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfResponseLocation" nillable="true" type="tns:ArrayOfResponseLocation" />
+      <xs:complexType name="ResponseLocation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Address" nillable="true" type="tns:Address">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DeliveryOptions" nillable="true" type="q3:ArrayOfstring">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Distance" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Latitude" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="LocationCode" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Longitude" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="OpeningHours" nillable="true" type="tns:OpeningHours">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="PartnerLocationCodes" nillable="true" type="tns:ArrayOfPartnerLocationCode">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="PartnerName" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="RetailFormulaName" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="RetailNetworkID" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Saleschannel" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="TerminalType" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ResponseLocation" nillable="true" type="tns:ResponseLocation" />
+      <xs:complexType name="Address">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Area" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Buildingname" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="City" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Countrycode" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Department" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Doorcode" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Floor" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="HouseNr" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="HouseNrExt" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Street" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Zipcode" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Address" nillable="true" type="tns:Address" />
+      <xs:complexType name="OpeningHours">
+        <xs:sequence>
+          <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Friday" nillable="true" type="q4:ArrayOfstring">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Monday" nillable="true" type="q5:ArrayOfstring">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Saturday" nillable="true" type="q6:ArrayOfstring">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Sunday" nillable="true" type="q7:ArrayOfstring">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Thursday" nillable="true" type="q8:ArrayOfstring">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Tuesday" nillable="true" type="q9:ArrayOfstring">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Wednesday" nillable="true" type="q10:ArrayOfstring">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="OpeningHours" nillable="true" type="tns:OpeningHours" />
+      <xs:complexType name="ArrayOfPartnerLocationCode">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="PartnerLocationCode" nillable="true" type="tns:PartnerLocationCode" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfPartnerLocationCode" nillable="true" type="tns:ArrayOfPartnerLocationCode" />
+      <xs:complexType name="PartnerLocationCode">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="PartnerLocationCode" nillable="true" type="tns:PartnerLocationCode" />
+      <xs:complexType name="ArrayOfWarning">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Warning" nillable="true" type="tns:Warning" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfWarning" nillable="true" type="tns:ArrayOfWarning" />
+      <xs:complexType name="Warning">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Warning" nillable="true" type="tns:Warning" />
+      <xs:complexType name="GetLocationsInAreaRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Countrycode" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Location" nillable="true" type="tns:LocationArea">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Message" nillable="true" type="tns:Message">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GetLocationsInAreaRequest" nillable="true" type="tns:GetLocationsInAreaRequest" />
+      <xs:complexType name="LocationArea">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:BaseLocation">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="CoordinatesNorthWest" nillable="true" type="tns:Coordinate">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+              <xs:element minOccurs="0" name="CoordinatesSouthEast" nillable="true" type="tns:Coordinate">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="LocationArea" nillable="true" type="tns:LocationArea" />
+      <xs:complexType name="GetLocationRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="LocationCode" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Message" nillable="true" type="tns:Message">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="RetailNetworkID" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GetLocationRequest" nillable="true" type="tns:GetLocationRequest" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfstring">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
+    </xs:schema>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://postnl.nl/cif/services/LocationWebService/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://postnl.nl/cif/domain/LocationWebService/" />
+      <xs:element xmlns:q1="http://postnl.nl/cif/domain/LocationWebService/" name="GetNearestLocations" nillable="true" type="q1:GetNearestLocationsRequest" />
+      <xs:element xmlns:q2="http://postnl.nl/cif/domain/LocationWebService/" name="GetNearestLocationsResponse" nillable="true" type="q2:GetLocationsResponse" />
+      <xs:element xmlns:q3="http://postnl.nl/cif/domain/LocationWebService/" name="GetLocationsInArea" nillable="true" type="q3:GetLocationsInAreaRequest" />
+      <xs:element xmlns:q4="http://postnl.nl/cif/domain/LocationWebService/" name="GetLocationsInAreaResponse" nillable="true" type="q4:GetLocationsResponse" />
+      <xs:element xmlns:q5="http://postnl.nl/cif/domain/LocationWebService/" name="GetLocation" nillable="true" type="q5:GetLocationRequest" />
+      <xs:element xmlns:q6="http://postnl.nl/cif/domain/LocationWebService/" name="GetLocationResponse" nillable="true" type="q6:GetLocationsResponse" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://postnl.nl/cif/services/common/" elementFormDefault="qualified" targetNamespace="http://postnl.nl/cif/services/common/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="CifException">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfExceptionData" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CifException" nillable="true" type="tns:CifException" />
+      <xs:complexType name="ArrayOfExceptionData">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ExceptionData" nillable="true" type="tns:ExceptionData" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfExceptionData" nillable="true" type="tns:ArrayOfExceptionData" />
+      <xs:complexType name="ExceptionData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ErrorMsg" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ErrorNumber" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ExceptionData" nillable="true" type="tns:ExceptionData" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="GetNearestLocationsRequestContract">
+    <wsdl:part name="GetNearestLocations" element="tns:GetNearestLocations" />
+  </wsdl:message>
+  <wsdl:message name="GetNearestLocationsResponseContract">
+    <wsdl:part name="GetNearestLocationsResponse" element="tns:GetNearestLocationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationWebService_GetNearestLocations_CifExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://postnl.nl/cif/services/common/" name="detail" element="q1:CifException" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsInAreaRequestContract">
+    <wsdl:part name="GetLocationsInArea" element="tns:GetLocationsInArea" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationsInAreaResponseContract">
+    <wsdl:part name="GetLocationsInAreaResponse" element="tns:GetLocationsInAreaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationWebService_GetLocationsInArea_CifExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://postnl.nl/cif/services/common/" name="detail" element="q2:CifException" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationRequestContract">
+    <wsdl:part name="GetLocation" element="tns:GetLocation" />
+  </wsdl:message>
+  <wsdl:message name="GetLocationResponseContract">
+    <wsdl:part name="GetLocationResponse" element="tns:GetLocationResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILocationWebService_GetLocation_CifExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://postnl.nl/cif/services/common/" name="detail" element="q3:CifException" />
+  </wsdl:message>
+  <wsdl:portType name="ILocationWebService">
+    <wsdl:operation name="GetNearestLocations">
+      <wsdl:input wsaw:Action="http://postnl.nl/cif/services/LocationWebService/ILocationWebService/GetNearestLocations" name="GetNearestLocationsRequestContract" message="tns:GetNearestLocationsRequestContract" />
+      <wsdl:output wsaw:Action="http://postnl.nl/cif/services/LocationWebService/ILocationWebService/GetNearestLocationsResponse" name="GetNearestLocationsResponseContract" message="tns:GetNearestLocationsResponseContract" />
+      <wsdl:fault wsaw:Action="http://postnl.nl/cif/services/LocationWebService/ILocationWebService/GetNearestLocationsCifExceptionFault" name="CifExceptionFault" message="tns:ILocationWebService_GetNearestLocations_CifExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsInArea">
+      <wsdl:input wsaw:Action="http://postnl.nl/cif/services/LocationWebService/ILocationWebService/GetLocationsInArea" name="GetLocationsInAreaRequestContract" message="tns:GetLocationsInAreaRequestContract" />
+      <wsdl:output wsaw:Action="http://postnl.nl/cif/services/LocationWebService/ILocationWebService/GetLocationsInAreaResponse" name="GetLocationsInAreaResponseContract" message="tns:GetLocationsInAreaResponseContract" />
+      <wsdl:fault wsaw:Action="http://postnl.nl/cif/services/LocationWebService/ILocationWebService/GetLocationsInAreaCifExceptionFault" name="CifExceptionFault" message="tns:ILocationWebService_GetLocationsInArea_CifExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLocation">
+      <wsdl:input wsaw:Action="http://postnl.nl/cif/services/LocationWebService/ILocationWebService/GetLocation" name="GetLocationRequestContract" message="tns:GetLocationRequestContract" />
+      <wsdl:output wsaw:Action="http://postnl.nl/cif/services/LocationWebService/ILocationWebService/GetLocationResponse" name="GetLocationResponseContract" message="tns:GetLocationResponseContract" />
+      <wsdl:fault wsaw:Action="http://postnl.nl/cif/services/LocationWebService/ILocationWebService/GetLocationCifExceptionFault" name="CifExceptionFault" message="tns:ILocationWebService_GetLocation_CifExceptionFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ILocationWebService" type="tns:ILocationWebService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetNearestLocations">
+      <soap:operation soapAction="http://postnl.nl/cif/services/LocationWebService/ILocationWebService/GetNearestLocations" style="document" />
+      <wsdl:input name="GetNearestLocationsRequestContract">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetNearestLocationsResponseContract">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CifExceptionFault">
+        <soap:fault use="literal" name="CifExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocationsInArea">
+      <soap:operation soapAction="http://postnl.nl/cif/services/LocationWebService/ILocationWebService/GetLocationsInArea" style="document" />
+      <wsdl:input name="GetLocationsInAreaRequestContract">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetLocationsInAreaResponseContract">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CifExceptionFault">
+        <soap:fault use="literal" name="CifExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetLocation">
+      <soap:operation soapAction="http://postnl.nl/cif/services/LocationWebService/ILocationWebService/GetLocation" style="document" />
+      <wsdl:input name="GetLocationRequestContract">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetLocationResponseContract">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CifExceptionFault">
+        <soap:fault use="literal" name="CifExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LocationWebService">
+    <wsdl:port name="BasicHttpBinding_ILocationWebService" binding="tns:BasicHttpBinding_ILocationWebService">
+      <soap:address location="https://testservice.postnl.com/CIF_SB/LocationWebService/2_1/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
